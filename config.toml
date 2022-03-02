@@ -9,7 +9,7 @@ description = 'test'
 #  description = "A blog that discusses techonology."
 #  bgimg = "Path, within the 'assets' folder, of the image used for the page background - optional"
   headshotimg = "Main-Page/Headshot.JPG"
-  headshotalt = "Jonatha Horton is an electrical engineer passionate about hardware design and robotics."
+  headshotalt = "Jonathan Horton is an electrical engineer passionate about hardware design and robotics."
   homeblobtext = "Test"
 
   rssinmenu = true
