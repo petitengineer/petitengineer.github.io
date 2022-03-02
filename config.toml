@@ -6,7 +6,7 @@ theme = 'aether'
 [params]
   brand = "JHorton"
   description = "A blog that discusses techonology."
-  headshotimg = "Main-Page/Headshot.JPG"
+  headshotimg = "main-page/headshot.JPG"
   headshotalt = "Jonathan Horton is an electrical engineer passionate about hardware design and robotics."
   rssinmenu = true
   github = "https://github.com/petitengineer"
