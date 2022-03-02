@@ -1,4 +1,21 @@
 baseURL = 'https://petitengineer.github.io/'
 languageCode = 'en-us'
-title = "Jonathan Horton's Blog"
+title = "Jonathan Horton"
 theme = 'aether'
+description = 'test'
+
+[params]
+  brand = "JHorton"
+#  description = "A blog that discusses techonology."
+#  bgimg = "Path, within the 'assets' folder, of the image used for the page background - optional"
+  headshotimg = "Main-Page/headshot.JPG"
+  headshotalt = "Jonatha Horton is an electrical engineer passionate about hardware design and robotics."
+  homeblobtext = "Test"
+
+  rssinmenu = true
+  github = "https://github.com/petitengineer"
+  linkedin = "www.linkedin.com/in/jonathan-horton-elg"
+
+#[markup]
+#  [markup.highlight]
+#    style = "igor"
