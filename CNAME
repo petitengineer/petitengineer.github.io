@@ -1,4 +1,0 @@
-petitengineer.com
-run: |-
-  touch CNAME
-  echo 'mydomain.com' > CNAME
