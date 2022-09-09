@@ -1,3 +1,9 @@
+Note:
+if you want to add the remote origin for this project, do 
+git remote set-url origin git@github.com:petitengineer/petitengineer.github.io.git
+This will allow you to set up the ssh URL for the repo.
+
+
 How to use git:
 
 …or create a new repository on the command line
@@ -7,7 +13,7 @@ git init
 git add README.md
 git commit -m "first commit"
 git branch -M main
-git remote add origin https://github.com/petitengineer/petitengineer.github.io.git
+git remote add origin git@github.com:petitengineer/petitengineer.github.io.git
 git push -u origin main
 
 …or push an existing repository from the command line
