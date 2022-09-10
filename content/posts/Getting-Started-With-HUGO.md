@@ -7,7 +7,7 @@ toc: false
 dropCap: true
 displayInMenu: false
 displayInList: true
-draft: false 
+draft: true 
 resources:
 - name: featuredImage
   src: ""
