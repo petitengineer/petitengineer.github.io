@@ -25,3 +25,15 @@ git push -u origin main
 …or import code from another repository
 
 You can initialize this repository with code from a Subversion, Mercurial, or TFS project.
+
+# How to make a post
+## Local ONLY
+To creat a post locally: (ref: https://themes.gohugo.io/themes/aether/)
+    (1) 'hugo new post/postnamehere/index.md'
+        (1.1) post will not show up while draft parameter is true.
+    (2) 'hugo server' will run a local server
+
+## Commiting the post to the web
+
+
+Simply push the repository to the master repository.
