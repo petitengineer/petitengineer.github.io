@@ -1,0 +1,8 @@
+{
+  "_comment": "Add new dated HTML files under projects/pages/, then list them here. Sorting uses data-date on each file.",
+  "pages": [
+    "projects/pages/2026-04-24-cross-modal-recommender.html",
+    "projects/pages/2026-02-28-policy-gradient-gridworld.html",
+    "projects/pages/2026-02-13-jax-pytorch-mnist.html"
+  ]
+}

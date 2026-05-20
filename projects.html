@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projects — Jonathan Horton · petitengineer.ca</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+    <script>
+      window.MathJax = {
+        tex: { inlineMath: [["\\(", "\\)"], ["$", "$"]], displayMath: [["\\[", "\\]"], ["$$", "$$"]] },
+        options: {
+          skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"],
+          ignoreHtmlClass: "tex2jax_ignore",
+        },
+      };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+  </head>
+  <body class="page-projects">
+    <div class="bg-pixels" aria-hidden="true">
+      <span class="bg-pixels__square bg-pixels__square--1"></span>
+      <span class="bg-pixels__square bg-pixels__square--2"></span>
+      <span class="bg-pixels__square bg-pixels__square--3"></span>
+    </div>
+
+    <header class="site-header">
+      <a class="brand" href="./">petitengineer.ca</a>
+      <nav class="site-nav" aria-label="Primary">
+        <a class="nav-link" href="./#profile">Profile</a>
+        <a class="nav-link nav-link--current" href="projects.html" aria-current="page">Projects</a>
+        <a class="nav-link" href="./#about-more">About</a>
+        <a
+          class="nav-link"
+          href="https://www.linkedin.com/in/jonathan-horton-elg"
+          target="_blank"
+          rel="noopener noreferrer"
+          >LinkedIn</a
+        >
+        <button
+          type="button"
+          class="theme-toggle"
+          id="theme-toggle"
+          aria-label="Toggle light and dark theme"
+          title="Theme"
+        >
+          <span class="theme-toggle__track" aria-hidden="true">
+            <span class="theme-toggle__thumb"></span>
+          </span>
+          <span class="theme-toggle__label" data-light>Light</span>
+          <span class="theme-toggle__label" data-dark>Dark</span>
+        </button>
+      </nav>
+    </header>
+
+    <button
+      type="button"
+      class="projects-toc-fab"
+      id="projects-toc-fab"
+      aria-label="Table of contents"
+      aria-expanded="false"
+      aria-controls="projects-toc-panel"
+      title="Jump to a project"
+    >
+      <span class="projects-toc-fab__icon" aria-hidden="true">☰</span>
+    </button>
+
+    <nav
+      class="projects-toc-panel"
+      id="projects-toc-panel"
+      aria-label="Project contents"
+      hidden
+    >
+      <p class="projects-toc__label">Jump to project</p>
+      <ol class="projects-toc__list" id="projects-toc-list"></ol>
+    </nav>
+
+    <div
+      class="terminal-float"
+      id="terminal-dock"
+      role="region"
+      aria-label="Site terminal"
+      data-busy="true"
+    >
+      <div class="terminal">
+        <div class="terminal__chrome">
+          <div class="terminal__chrome-btns">
+            <button
+              type="button"
+              class="terminal__chrome-btn terminal__chrome-btn--close"
+              id="terminal-btn-close"
+              aria-label="Close terminal"
+              title="Close"
+            ></button>
+            <button
+              type="button"
+              class="terminal__chrome-btn terminal__chrome-btn--minimize"
+              id="terminal-btn-minimize"
+              aria-label="Minimize terminal"
+              title="Minimize"
+            ></button>
+            <button
+              type="button"
+              class="terminal__chrome-btn terminal__chrome-btn--zoom"
+              id="terminal-btn-zoom"
+              aria-label="Fullscreen (demo)"
+              title="Zoom"
+            ></button>
+          </div>
+          <span class="terminal__title">visitor@petitengineer — zsh</span>
+        </div>
+        <div class="terminal__body" id="terminal-body">
+          <p class="terminal__line terminal__line--prompt" id="terminal-prompt-1">
+            <span class="terminal__user">visitor</span><span class="terminal__at">@</span
+            ><span class="terminal__host">petitengineer</span><span class="terminal__path"> ~ %</span>
+            <span id="typed-command-1" class="terminal__typed"></span
+            ><span class="terminal__cursor terminal__cursor--prompt" id="term-cursor-1" aria-hidden="true"></span>
+          </p>
+          <pre class="terminal__output" id="terminal-output-1"></pre>
+          <div class="terminal__after-intro" id="terminal-after-intro" hidden></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scroll-cue" id="scroll-cue">
+      <span class="scroll-cue__text">Scroll to load each project</span>
+      <span class="scroll-cue__chev" aria-hidden="true"></span>
+    </div>
+
+    <main class="projects-main" id="projects-main">
+      <section class="projects-page-intro" id="projects-intro" aria-labelledby="projects-page-heading">
+        <div class="projects-page-intro__inner">
+          <h1 id="projects-page-heading">Projects</h1>
+          <p>
+            Here are some of the projects I worked on throughout my graduate and undergraduate studies. Feel free to
+            use the table of contents if you want to jump to a particular project.
+          </p>
+        </div>
+      </section>
+
+      <div class="scroll-nudge scroll-nudge--projects-intro" aria-hidden="true"></div>
+
+      <div id="projects-mount"></div>
+    </main>
+
+    <footer class="site-footer">
+      <p>© <span id="year"></span> Jonathan Horton · <a href="./">petitengineer.ca</a></p>
+    </footer>
+
+    <script src="./projects-registry.js"></script>
+    <script src="./projects-page.js"></script>
+  </body>
+</html>

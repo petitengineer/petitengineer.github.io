@@ -1,0 +1,44 @@
+Jonathan Horton 	                                                                                                                   613-979-6554
+	           jh@petitengineer.com
+	      LinkedIn
+EDUCATION
+
+M.Eng. in Electrical and Computer Engineering, Concentration in AI                                    	         2023 – 2026 University of Ottawa, Ottawa, ON	Completed 4 courses in excess of program requirements
+BaSc in Electrical Engineering                                                                                                                       2016 –2020
+University of Ottawa, Ottawa, ON
+WORK EXPERIENCE
+
+Teaching Assistant for Digital Systems and Circuits & Machines	Winter 2026
+University of Ottawa, Ottawa, ON
+    • Wrote solution manuals, corrected assignments, taught tools like FPGAs, signal generators, etc.
+Quanser ACC Robotic Car Competitor (Placed 8th of 42 teams)                              	   Winter and Summer 2025
+University of Ottawa and Quanser                                                                             [Tools: OpenCV, Docker, ROS2]
+    • Programmed the vehicle to navigate a track by activating different modes, such as lane recognition and steering adjustments, based on the elapsed driving time
+    • Wrote OpenCV traffic light state recognition module using Hough Transforms and implemented it using ROS2 running in Docker on NVIDIA Jetson
+    • Developed machine vision algorithms using operators such as color filters, thresholding, edge detection, and morphological operations to detect stop signs, traffic cones, and road edges
+Consultant Machine Learning Engineer	Winter 2025
+Synopsys and University of Ottawa                [Tools: Git, Ploomber, Seaborn, Scikit-learn, Tensorflow, MLflow]
+    • Developed an automated machine learning pipeline with data preprocessing, model deployment using TensorFlow Serving, and integrated webhooks for the backend, along with a frontend website
+    • Evaluated model performance using charts, graphs, and confusion matrices, along with metrics such as F1-Score, precision, and accuracy
+    • Reduced the time required by about 3 weeks for engineers to identify safe and efficient programming conditions for one-time programmable memory
+    • Organized model artifacts with MLflow to prevent loss of models during new training iterations
+Python Developer	Summer 2021 
+Department of Fisheries and Oceans, Ottawa, Ontario                                                  [Python Libraries: Pandas]
+    • Created a Python library with unit testing to automate data validation, saving 6 weeks of work yearly
+Teaching Assistant for Circuit Theory	Fall 2023 & Fall 2024
+University of Ottawa, Ottawa, ON
+    • Wrote lab manuals, corrected assignments, taught tools like signal generators, oscilloscopes, etc.
+University of Ottawa’s Bionics Team 	2017 - 2020
+University of Ottawa, Ottawa, ON
+    • Lead the development of the electrical systems for a 4 DoF hip mounted robotic exoskeleton 
+    • Designed and built a battery pack with 85% efficiency to power control system and motors
+Tools
+Fresh: Python, C++, Tensorflow, OpenCV, Linux, Bash, Docker, ROS2, Scikit-learn, Git, MATLAB
+Stale: Assembly (Motorola 68HC12), C#, CSS, Django, HTML, Java, Javascript, VHDL
+APPLIED PROJECTS 
+    • Dual Agents for Book and Music Recommendation (2026): Implemented cross-modal book-and-music recommenders in a shared 128-D emotion embedding space (DistilBERT-aligned text plus MSD valence/arousal), training neural world models on tabular engagement proxies and REINFORCE or PPO slate-bandit policies that rerank cosine- and MMR-built shortlists.
+    • Handwriting Recognition (2024): Collaborated with Synopsys on an automation project aimed at reading handwritten serial numbers on semiconductor chips using machine vision and Python, reducing the need for manual data entry by technicians                                 [Python Libraries: Seaborn, Scikit-learn]
+    • Sentiment Analysis (2024): Implemented a Sequential Neural Network for sentiment analysis with TensorFlow on a remote server, accessed via SSH. Also developed a user-friendly front end for secure HTTPS server interaction                 [Tools: Git, Tensorflow, Tensorflow Serving, ngrok, SSH, Certbot, Flask]
+    • Automated Categorization (2024): Wrote Python code in a four-person team to pre-process text from books in the Gutenberg library and develop a model capable of predicting which book a random passage came from (98% accuracy)                                                           [Python Libraries: Git, Matplotlib, Pandas, Jupyter]
+    • Robotic Arm Control (2019): Troubleshooted and designed the control algorithm in MATLAB for a five degree of freedom robotic arm with two other students
+    • Sleep State Recognition (2023): Worked as a member of a two-person team responsible for applying machine learning algorithms to accelerometer data with the goal of detecting sleep states

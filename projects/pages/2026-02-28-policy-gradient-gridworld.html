@@ -1,0 +1,150 @@
+<section
+  class="project-detail project-detail--pending"
+  id="project-policy-gradient-gridworld"
+  data-date="2026-02-28"
+  data-slug="policy-gradient-gridworld"
+  data-title="DQN vs REINFORCE in JAX"
+  data-tagline="Policy gradients on a 7×7 gridworld"
+  data-thumb="projects/project-2/web/dqn_gamma0.99_lr0.001_policy_arrows.png"
+  data-command="render ~/projects/policy-gradient-gridworld.md"
+  aria-labelledby="project-gridworld-heading"
+>
+  <div class="project-detail__inner">
+    <header class="project-detail__head">
+      <p class="project-detail__date"><time datetime="2026-02-28">February 2026</time></p>
+      <h2 id="project-gridworld-heading">Policy Gradient vs Value-Based RL in JAX</h2>
+      <p class="project-detail__meta">Assignment 2 · ELG5214 · University of Ottawa</p>
+    </header>
+
+    <div class="project-detail__prose">
+      <p>
+        Using Gymnasium, I implemented a 7×7 gridworld where the agent starts at \((1,1)\) and aims for \((5,5)\)
+        with four actions (up, down, left, right). Observations include normalized coordinates, Manhattan distance to
+        the goal, and goal direction. Rewards encourage shorter paths, penalize moving away from the goal, and apply
+        large bonuses/penalties at the goal and in pits (which reset the agent to start).
+      </p>
+
+      <p>
+        DQN and REINFORCE-with-baseline were compared over 10 seeds, learning rates \(\{0.001, 0.01, 0.1\}\), and
+        discount factors \(\gamma \in \{0.9, 0.99\}\) for 200 episodes (max 100 steps). A second study added a vertical
+        pit column at \(x=2, y \in \{0,\ldots,4\}\).
+      </p>
+
+      <div class="project-figure-grid">
+        <figure class="project-figure">
+          <img
+            src="projects/project-2/web/reinforce_gamma0.99_lr0.001_reward_subplots.png"
+            alt="REINFORCE reward versus episodes for ten random seeds"
+            width="640"
+            height="520"
+            loading="lazy"
+          />
+          <figcaption>REINFORCE: reward vs episodes (\(\gamma=0.99\), lr=0.001).</figcaption>
+        </figure>
+        <figure class="project-figure">
+          <img
+            src="projects/project-2/web/dqn_gamma0.99_lr0.001_reward_subplots.png"
+            alt="DQN reward versus episodes for ten random seeds"
+            width="640"
+            height="520"
+            loading="lazy"
+          />
+          <figcaption>DQN: reward vs episodes (\(\gamma=0.99\), lr=0.001).</figcaption>
+        </figure>
+      </div>
+
+      <div class="project-figure-grid">
+        <figure class="project-figure">
+          <img
+            src="projects/project-2/web/reinforce_gamma0.99_lr0.001_reward_overlay.png"
+            alt="Overlay of REINFORCE learning curves across seeds"
+            width="640"
+            height="520"
+            loading="lazy"
+          />
+          <figcaption>REINFORCE overlay (less variance than DQN at this setting).</figcaption>
+        </figure>
+        <figure class="project-figure">
+          <img
+            src="projects/project-2/web/dqn_gamma0.99_lr0.001_reward_overlay.png"
+            alt="Overlay of DQN learning curves across seeds"
+            width="640"
+            height="520"
+            loading="lazy"
+          />
+          <figcaption>DQN overlay (noisier learning curves).</figcaption>
+        </figure>
+      </div>
+
+      <div class="project-figure-grid">
+        <figure class="project-figure">
+          <img
+            src="projects/project-2/web/dqn_gamma0.99_lr0.001_policy_arrows.png"
+            alt="DQN final policies shown as action arrows on the grid"
+            width="640"
+            height="520"
+            loading="lazy"
+          />
+          <figcaption>DQN final policies (arrow view).</figcaption>
+        </figure>
+        <figure class="project-figure">
+          <img
+            src="projects/project-2/web/reinforce_gamma0.99_lr0.001_policy_arrows.png"
+            alt="REINFORCE final policies shown as action arrows on the grid"
+            width="640"
+            height="520"
+            loading="lazy"
+          />
+          <figcaption>REINFORCE final policies (arrow view).</figcaption>
+        </figure>
+      </div>
+
+      <div class="project-figure-grid">
+        <figure class="project-figure">
+          <img
+            src="projects/project-2/web/dqn_gamma0.99_lr0.001_policy_heatmaps.png"
+            alt="DQN final policies as heatmaps of action preferences"
+            width="640"
+            height="520"
+            loading="lazy"
+          />
+          <figcaption>DQN policy heatmaps.</figcaption>
+        </figure>
+        <figure class="project-figure">
+          <img
+            src="projects/project-2/web/reinforce_gamma0.99_lr0.001_policy_heatmaps.png"
+            alt="REINFORCE final policies as heatmaps"
+            width="640"
+            height="520"
+            loading="lazy"
+          />
+          <figcaption>REINFORCE policy heatmaps.</figcaption>
+        </figure>
+      </div>
+
+      <p>
+        DQN was sensitive to \(\gamma\) and learning rate—lr=0.1 failed badly, and \(\gamma=0.99\) often increased
+        noise except at lr=0.001. REINFORCE preferred smaller learning rates but was less sensitive to \(\gamma\).
+        JAX’s pure functions required explicit parameter/state threading and made <code>vmap</code>/<code>jit</code>
+        natural for batched evaluation. Pits had limited effect on learning trends beyond lowering the random baseline.
+      </p>
+
+      <p class="project-detail__link">
+        <a
+          href="https://github.com/petitengineer/Policy-Gradient-vs-Value-Based-RL-in-JAX"
+          target="_blank"
+          rel="noopener noreferrer"
+          >GitHub repository</a
+        >
+      </p>
+    </div>
+
+      <details class="project-references tex2jax_ignore">
+        <summary class="project-references__summary">
+          <span>References</span>
+          <span class="project-references__chevron" aria-hidden="true">›</span>
+        </summary>
+        <p class="project-references__empty">No references for this project.</p>
+      </details>
+  </div>
+</section>

@@ -1,0 +1,310 @@
+%% LyX 2.5.1 created this file.  For more info, see https://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[english]{article}
+\usepackage{courier}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{babel}
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{geometry}
+\geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage[pdfusetitle,
+ bookmarks=true,bookmarksnumbered=false,bookmarksopen=false,
+ breaklinks=false,pdfborder={0 0 1},backref=false,colorlinks=false]
+ {hyperref}
+
+\makeatletter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+%% A simple dot to overcome graphicx limitations
+\newcommand{\lyxdot}{.}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
+\newlength{\lyxlabelwidth}      % auxiliary length 
+
+\makeatother
+
+\theoremstyle{plain}
+\newtheorem{thm}{\protect\theoremname}
+\newtheorem{question}[thm]{\protect\questionname}
+\theoremstyle{definition}
+\newtheorem*{sol*}{\protect\solutionname}
+\usepackage{listings}
+\providecommand{\questionname}{Question}
+\providecommand{\solutionname}{Solution}
+\providecommand{\theoremname}{Theorem}
+\renewcommand{\lstlistingname}{Listing}
+
+\begin{document}
+\title{Assignment 2 - Policy Gradient vs Value-Based RL in JAX}
+\author{Jonathan Horton (\#7710257)}
+\maketitle
+
+\section{Note}
+
+In general in this report, the results discussed are for the case
+where the grid world is empty and no obstacles are present, unless
+otherwise specified. Only a goal and a starting point exist.
+
+\section{Computer/GPU Details }
+
+The code was run on a computer with 32 GB of RAM, a AMD Ryzen 9 3900X
+12-Core 3.80GHz Processor, and on a NVIDIA GeForce RTX 2080 (8GB)
+GPU.
+
+\section{Description of Environment}
+
+Gymnasium was used for the environment due to it being a more widely
+used library and having a wider range of tutorials and documentation
+available online, thereby simplifying implementation. The environment
+is a simple 7 by 7 Grid. The agent starts at the top right corner
+at the point $\left(1,1\right)$ of the environment and works towards
+the point $\ensuremath{\left(5,5\right)}$. It will not move if it
+attempts to move off of any of the edges of the grid. The agent cannot
+move diagonally; it can only move (i.e. select the action) either
+up, down, left, or right. The experiment was run twice, once with
+pits and once without. A pit adds a negative reward when the agent
+traverses onto that square and resets the position of the agent to
+the point $\ensuremath{\left(1,1\right)}$ when entered. The episode
+continues even if a pit has been entered.
+
+Observations provided to the reinforcement algorithms are: the normalized
+coordinates, the Manhattan distance to the goal, and the direction
+to the goal.
+
+A small reward is given if a step moves the agent closer to the goal,
+and a small penalty is given for moving away. In addition, another
+constant small penalty is added to the reward encourage shorter paths.
+A large penalty is added to the reward if the agent steps in a pit.
+Lastly, A large reward is provided for reaching the end goal.
+
+A wrapper using \lstinline[language=Python,basicstyle={\ttfamily}]!gym.Wrapper!
+was implemented
+
+The research questions that are being investigated in this assignment:
+\begin{enumerate}
+\item Make a comparison of DQN vs REINFORCE-wb in a blank environment. As
+required by the assignment, 10 different seeds are tried for each
+algorithm and set of hyperparameter settings (Learning rates: $\ensuremath{0.001}$,
+$\ensuremath{0.01}$, and $\ensuremath{0.1}$; Discount factors: $\ensuremath{\gamma=0.9}$,
+$\ensuremath{0.99}$).
+\item Observe the effects of a vertical pit (as defined above) on the learning
+rates of DQN and REINFORCE-wb.
+\end{enumerate}
+
+\section{Learning Curves for All Agents}
+
+All agents were trained for 200 episodes at a maximum of 100 steps.
+This report will be submitted with all of the learning curves for
+all of the agents. Note that they will not all be shown in this report
+as that would take an unreasonable amount of space in the report,
+as there are 48 graphs. Some examples of learning curves are shown
+in Figure \ref{fig:REINFORCE-wb:-Reward-vs} and Figure \ref{fig:DQN:-Reward-vs}.
+From these two graphs, it can be observed that REINFORCE is much less
+noisy than DQN, though both suffer from spikes in rewards during the
+training process. Generally speaking, with the specific hyperparameters
+shown here, both are able to learn a rewarding behaviour for the defined
+grid world environment. Note that there are 10 subplots here in each
+graph: one for each of the seeds used in testing. The random baseline
+is shown in red in all graphs for each seed. The overlayed version
+of these graphs are shown in Figure \ref{fig:REINFORCE-wb-overlayed:-Reward}
+and Figure \ref{fig:DQN-overlayed:-Reward}. The increased noisy behavious
+of DQN is particularly visible in Figure \ref{fig:DQN-overlayed:-Reward}.
+
+\begin{figure}[H]
+\begin{centering}
+\includegraphics[scale=0.4]{results/reinforce_gamma0\lyxdot 99_lr0\lyxdot 001_reward_subplots}
+\par\end{centering}
+\caption{\label{fig:REINFORCE-wb:-Reward-vs}REINFORCE-wb: Reward vs Episodes
+($\ensuremath{\gamma}$=0.99, lr=0.001)}
+
+\end{figure}
+
+\begin{figure}[H]
+\begin{centering}
+\includegraphics[scale=0.4]{results/dqn_gamma0\lyxdot 99_lr0\lyxdot 001_reward_subplots}
+\par\end{centering}
+\caption{\label{fig:DQN:-Reward-vs}DQN: Reward vs Episodes ($\ensuremath{\gamma}$=0.99,
+lr=0.001)}
+\end{figure}
+
+\begin{figure}[H]
+\begin{centering}
+\includegraphics[scale=0.4]{results/reinforce_gamma0\lyxdot 99_lr0\lyxdot 001_reward_overlay}
+\par\end{centering}
+\caption{\label{fig:REINFORCE-wb-overlayed:-Reward}REINFORCE-wb overlayed:
+Reward vs Episodes ($\ensuremath{\gamma}$=0.99, lr=0.001)}
+\end{figure}
+
+\begin{figure}[H]
+\begin{centering}
+\includegraphics[scale=0.4]{results/dqn_gamma0\lyxdot 99_lr0\lyxdot 001_reward_overlay}
+\par\end{centering}
+\caption{\label{fig:DQN-overlayed:-Reward}DQN overlayed: Reward vs Episodes
+($\ensuremath{\gamma}$=0.99, lr=0.001)}
+\end{figure}
+
+
+\section{Policy Visualization}
+
+All agents were trained for 200 episodes at a maximum of 100 steps.
+Some examples of policy visualization are shown in Figures \ref{fig:DQN-Final-Policy:},
+\ref{fig:REINFORCE-wb:-Final-policy}, \ref{fig:DQN-Final-policy:}
+and \ref{fig:REINFORCE-wb:-Final-policy-1}. Figures \ref{fig:DQN-Final-Policy:}
+and \ref{fig:REINFORCE-wb:-Final-policy} show the policies as arrows,
+whereas Figures \ref{fig:DQN-Final-policy:} and \ref{fig:REINFORCE-wb:-Final-policy-1}
+use colours. Regardless, both show the same information: the final
+policy indicating the optimal action to take in each state. The agent
+starts at the point labeled with the blue S and ends at the point
+labeled with a red G. The colours shown in Figure \ref{fig:DQN-Final-policy:}
+and \ref{fig:REINFORCE-wb:-Final-policy-1} correspond to the following:
+yellow for left, blue for right, purple for up, and greed for down.
+
+Some of the illustrated policies would always give the solution regardless
+of the starting action taken and assuming a greedy policy. For example,
+Seed 5 in figure \ref{fig:DQN-Final-Policy:} is optimal. Others do
+not meet this criteria; for example, seed 4 in Figure \ref{fig:DQN-Final-Policy:}
+heads eventually left into a wall after going down at the starting
+point.
+
+\begin{figure}[H]
+\begin{centering}
+\includegraphics[scale=0.4]{results/dqn_gamma0\lyxdot 99_lr0\lyxdot 001_policy_arrows}
+\par\end{centering}
+\caption{\label{fig:DQN-Final-Policy:}DQN Final Policy: arrows($\ensuremath{\gamma}$=0.99,
+lr=0.001)}
+\end{figure}
+
+\begin{figure}[H]
+\begin{centering}
+\includegraphics[scale=0.4]{results/reinforce_gamma0\lyxdot 99_lr0\lyxdot 001_policy_arrows}
+\par\end{centering}
+\caption{\label{fig:REINFORCE-wb:-Final-policy}REINFORCE-wb: Final policy
+arrows($\ensuremath{\gamma}$=0.99, lr=0.001)}
+\end{figure}
+
+\begin{figure}[H]
+\begin{centering}
+\includegraphics[scale=0.4]{results/dqn_gamma0\lyxdot 99_lr0\lyxdot 001_policy_heatmaps}
+\par\end{centering}
+\caption{\label{fig:DQN-Final-policy:}DQN Final policy: Heatmap ($\ensuremath{\gamma}$=0.99,
+lr=0.001)}
+\end{figure}
+
+\begin{figure}[H]
+\begin{centering}
+\includegraphics[scale=0.4]{results/reinforce_gamma0\lyxdot 99_lr0\lyxdot 001_policy_heatmaps}
+\par\end{centering}
+\caption{\label{fig:REINFORCE-wb:-Final-policy-1}REINFORCE-wb: Final policy
+heat maps ($\ensuremath{\gamma}$=0.99, lr=0.001)}
+\end{figure}
+
+
+\section{Hyperparameters Sensitivity Analysis}
+
+Overall, both algorithms are sensitive to hyperparameters. It is possible
+that learning would occur if the algorithms were run for a greater
+number of episodes; this was not explored in this assignment. 
+
+DQN learned very poorly when the learning rate was set to $\ensuremath{0.1}$
+when compared to its performance at $\ensuremath{0.01}$ and $\ensuremath{0.001}$
+for gamma = 0.9. Moreover, for DQN, increasing the gamma value to
+$\ensuremath{0.99}$ dramatically reduced learning across all learning
+rates, except for 0.001 where the results were similar but noisier.
+In general, a smaller value of gamma and a smaller value for the learning
+rate produces better results.
+
+When the gamma value was set to 0.9, REINFORCE-wb performed quite
+well at a small learning rate of 0.001, but as the value increased,
+it fails to learn. A very similar behaviour is also observed when
+the gamma value is set to 0.99, suggesting that REINFORCE-wb is less
+sensitive to this hyperparameter than DQN. In general, smaller values
+for both hyperparameters were also preferred for REINFORCE-wb.
+
+\section{Reflections}
+\begin{question}
+The mean performance of your agent versus the variability across seeds.
+If there is a high-degree of variability discuss the potential causes
+and how you could assess this.
+\begin{sol*}
+For the most part, there was not a large amount of variability across
+seeds. However, a particular exception to this rule was REINFORCE-WB
+at $\ensuremath{\gamma=0.99}$ and $\ensuremath{\text{lr}=0.01}$
+and DQN at $\ensuremath{\gamma=0.9}$ and $\ensuremath{\text{lr}=0.1}$.
+In the case of REINFORCE-wb at t $\ensuremath{\gamma=0.99}$ and $\ensuremath{\text{lr}=0.01}$
+a possible cause might be that the long-horizon credit assignment
+combined with the high learning rate makes return estimates high-variance.
+Thus, tiny differences in early trajectories across seeds could result
+in different policy updates. In the case of DQN, the large learning
+rate might be causing Q-updates to overshoot, which causes value estimates
+to be higher in variance, thereby having the entire process have a
+higher sensitivity to the exact replay samples each seed encounters.
+\end{sol*}
+\end{question}
+
+\begin{question}
+How JAX\textquoteright s functional style influenced your implementation.
+\begin{sol*}
+JAX's function style impacted how both my training loops and environment
+was structured. Some modifications to the environment were necessary
+to ensure optimal performance. Moreover, because functions must remain
+pure, parameters, states, and random seeds were seperated to avoid
+having hidden mutable states. Loss functions were particularly impacted
+by JAX because they accept parameters as inputs and return losses
+and other values, making the update step a transformation rather than
+an in-place mutation (as other paradigms use). The functionnal constraints
+also made it easy to implement both vmap and JIT. This changed how
+batches had to be organized as well as policy evaluation, so that
+both could be expressed as pure array transformations. 
+\end{sol*}
+\end{question}
+
+\begin{question}
+Observe the effects of a vertical pit (as defined above) on the learning
+rates of DQN and REINFORCE-wb.
+\begin{sol*}
+Frankly, the addition of the pit seems to have had minimal effects
+on training. The pit was placed at (0,2), (1,2), (2,2), (3,2), and
+(4,2). Performance still drops as gamma increases and lr increases.
+The best results, shown are in Figures \ref{fig:REINFORCE-wb:-Reward-vs-1}
+and \ref{fig:DQN:-Reward-vs-1}. The random agent performs poorly
+because of the negative rewards provided by the pit. The arrow diagrams
+suggest that an error may have occured during saving, or that the
+agent is learning a loop to obtain rewards for this particular case.
+\end{sol*}
+\begin{figure}[H]
+\begin{centering}
+\includegraphics[scale=0.4]{resultsWithPits/dqn_gamma0\lyxdot 99_lr0\lyxdot 001_reward_subplots}
+\par\end{centering}
+\caption{\label{fig:REINFORCE-wb:-Reward-vs-1}DQN: Reward vs Episodes ($\ensuremath{\gamma}$=0.99,
+lr=0.001)}
+\end{figure}
+
+\begin{figure}[H]
+\begin{centering}
+\includegraphics[scale=0.4]{resultsWithPits/reinforce_gamma0\lyxdot 99_lr0\lyxdot 001_reward_subplots}
+\par\end{centering}
+\caption{\label{fig:DQN:-Reward-vs-1}REINFORCE-wb: Reward vs Episodes ($\ensuremath{\gamma}$=0.99,
+lr=0.001)}
+\end{figure}
+
+\end{question}
+
+
+\section{AI Disclosure and Note}
+
+The Syllabus states ``Assignments \& Presentations: Use of AI tools
+(e.g., ChatGPT, Gemini, Copilot) are not permitted.'' As such, my
+response to the questions ``What did AI suggest? What did you accept/reject
+and why?'' is that AI use is not permitted for assignments (per the
+syllabus), and that therefore it was not used. 
+
+If the policy for the course regarding use of AI in assignments has
+changed, I would request that you please make an announcement clarifying
+in what ways AI can be used for assignments.
+\end{document}

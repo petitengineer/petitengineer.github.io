@@ -1,0 +1,127 @@
+<section
+  class="project-detail project-detail--pending"
+  id="project-jax-pytorch-mnist"
+  data-date="2026-02-13"
+  data-slug="jax-pytorch-mnist"
+  data-title="JAX vs PyTorch on MNIST"
+  data-tagline="Functional vs imperative deep learning"
+  data-thumb="projects/project-1/web/epoch_times_all_curves.png"
+  data-command="render ~/projects/jax-pytorch-mnist.md"
+  aria-labelledby="project-jax-mnist-heading"
+>
+  <div class="project-detail__inner">
+    <header class="project-detail__head">
+      <p class="project-detail__date"><time datetime="2026-02-13">February 2026</time></p>
+      <h2 id="project-jax-mnist-heading">JAX vs PyTorch: MNIST Feedforward Benchmark</h2>
+      <p class="project-detail__meta">Assignment 1 · ELG5214 · University of Ottawa</p>
+    </header>
+
+    <div class="project-detail__prose">
+      <p>
+        This assignment compares JAX and PyTorch on MNIST using the same four-layer ReLU classifier
+        (784→256→128→10) with cross-entropy loss and an 80/20 train/validation split. Experiments ran on an AMD
+        Ryzen 9 3900X with 32&nbsp;GB RAM and an NVIDIA RTX 2080 (8&nbsp;GB).
+      </p>
+
+      <p>
+        JAX follows a functional style: parameters are explicit pytrees, <code>grad</code> builds gradient functions,
+        and <code>@jit</code> compiles the update step through XLA. PyTorch uses an object-oriented workflow with
+        familiar training utilities and a larger production ecosystem (e.g. TorchServe for MLOps).
+      </p>
+
+      <p>
+        Automatic differentiation in JAX is expressed as:
+      </p>
+      <p class="project-equation">
+        \(\nabla_{\text{params}}\, f(\text{params}, x, y)\)
+      </p>
+      <p>
+        Wrapping the update in <code>jit</code> traces the training step once, then recompiles to fast machine code;
+        the first epoch pays a warm-up cost (roughly 100&nbsp;ms here) that larger batch sizes amortize.
+      </p>
+
+      <figure class="project-figure">
+        <img
+          src="projects/project-1/web/epoch_times_all_curves.png"
+          alt="Training time per epoch for JAX and PyTorch at batch sizes 256 and 1024"
+          width="900"
+          height="700"
+          loading="lazy"
+        />
+        <figcaption>Training time by epoch: JAX warm-up is small; PyTorch is faster at batch 256, JAX smoother at 1024.</figcaption>
+      </figure>
+
+      <div class="project-figure-grid project-figure-grid--stacked">
+        <figure class="project-figure">
+          <img
+            src="projects/project-1/web/combined_accuracy_with_std_sem.png"
+            alt="JAX validation accuracy across batch sizes with standard error"
+            width="640"
+            height="480"
+            loading="lazy"
+          />
+          <figcaption>JAX accuracy (left column in report figure set).</figcaption>
+        </figure>
+        <figure class="project-figure">
+          <img
+            src="projects/project-1/web/combined_pytorch_accuracy_with_std_sem.png"
+            alt="PyTorch validation accuracy across batch sizes with standard error"
+            width="640"
+            height="480"
+            loading="lazy"
+          />
+          <figcaption>PyTorch accuracy (right column in report figure set).</figcaption>
+        </figure>
+        <figure class="project-figure">
+          <img
+            src="projects/project-1/web/combined_loss_with_std_sem.png"
+            alt="JAX validation loss across batch sizes"
+            width="640"
+            height="480"
+            loading="lazy"
+          />
+          <figcaption>JAX loss curves.</figcaption>
+        </figure>
+        <figure class="project-figure">
+          <img
+            src="projects/project-1/web/combined_pytorch_loss_with_std_sem.png"
+            alt="PyTorch validation loss across batch sizes"
+            width="640"
+            height="480"
+            loading="lazy"
+          />
+          <figcaption>PyTorch loss curves.</figcaption>
+        </figure>
+      </div>
+
+      <p>
+        Overall accuracy and loss were broadly similar, though JAX benefited more from batch size 1024—likely due to
+        XLA kernel fusion and whole-step compilation versus PyTorch’s per-op dispatch. JAX felt less intuitive for
+        training loops but competitive for research-style experimentation; PyTorch remained easier for logging and
+        online resources.
+      </p>
+    </div>
+
+      <details class="project-references tex2jax_ignore">
+        <summary class="project-references__summary">
+          <span>References</span>
+          <span class="project-references__chevron" aria-hidden="true">›</span>
+        </summary>
+        <ol class="project-references__list">
+          <li>
+            A. Kafesu, “JAX vs. PyTorch: Differences and Similarities [2025],” Geekflare, Dec. 30, 2024. Accessed Feb. 13, 2026.
+            <a href="https://geekflare.com/dev/jax-vs-pytorch/" target="_blank" rel="noopener noreferrer">geekflare.com/dev/jax-vs-pytorch/</a>
+          </li>
+          <li>
+            A. Nawaz, “jit, grad, and vmap in JAX — One simple idea behind all three: transforming functions,” Medium, Jan. 26, 2026.
+            Accessed Feb. 13, 2026.
+            <a href="https://medium.com/@AliPythonDev/jit-grad-and-vmap-in-jax-one-simple-idea-behind-all-three-transforming-functions-ed4734f0eb16" target="_blank" rel="noopener noreferrer">Medium article</a>
+          </li>
+          <li>
+            K. Heckel and J. E. Pedersen, “Optimizing GPU/TPU Code With JAX and Pallas,” Open Neuromorphic, Oct. 15, 2024.
+            <a href="https://open-neuromorphic.org/neuromorphic-computing/software/hacking-hours/kade-heckel-jax-pallas-optimization/" target="_blank" rel="noopener noreferrer">open-neuromorphic.org</a>
+          </li>
+        </ol>
+      </details>
+  </div>
+</section>

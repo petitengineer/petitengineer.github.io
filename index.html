@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jonathan Horton — petitengineer.ca</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="bg-pixels" aria-hidden="true">
+      <span class="bg-pixels__square bg-pixels__square--1"></span>
+      <span class="bg-pixels__square bg-pixels__square--2"></span>
+      <span class="bg-pixels__square bg-pixels__square--3"></span>
+    </div>
+
+    <header class="site-header">
+      <a class="brand" href="./">petitengineer.ca</a>
+      <nav class="site-nav" aria-label="Primary">
+        <a class="nav-link nav-link--jump" href="#profile">Profile</a>
+        <a class="nav-link" href="projects.html">Projects</a>
+        <a class="nav-link nav-link--jump" href="#about-more">About</a>
+        <a
+          class="nav-link"
+          href="https://www.linkedin.com/in/jonathan-horton-elg"
+          target="_blank"
+          rel="noopener noreferrer"
+          >LinkedIn</a
+        >
+        <button
+          type="button"
+          class="theme-toggle"
+          id="theme-toggle"
+          aria-label="Toggle light and dark theme"
+          title="Theme"
+        >
+          <span class="theme-toggle__track" aria-hidden="true">
+            <span class="theme-toggle__thumb"></span>
+          </span>
+          <span class="theme-toggle__label" data-light>Light</span>
+          <span class="theme-toggle__label" data-dark>Dark</span>
+        </button>
+      </nav>
+    </header>
+
+    <div
+      class="terminal-float"
+      id="terminal-dock"
+      role="region"
+      aria-label="Site terminal"
+      data-busy="true"
+    >
+      <div class="terminal">
+        <div class="terminal__chrome">
+          <div class="terminal__chrome-btns">
+            <button
+              type="button"
+              class="terminal__chrome-btn terminal__chrome-btn--close"
+              id="terminal-btn-close"
+              aria-label="Close terminal"
+              title="Close"
+            ></button>
+            <button
+              type="button"
+              class="terminal__chrome-btn terminal__chrome-btn--minimize"
+              id="terminal-btn-minimize"
+              aria-label="Minimize terminal"
+              title="Minimize"
+            ></button>
+            <button
+              type="button"
+              class="terminal__chrome-btn terminal__chrome-btn--zoom"
+              id="terminal-btn-zoom"
+              aria-label="Fullscreen (demo)"
+              title="Zoom"
+            ></button>
+          </div>
+          <span class="terminal__title">visitor@petitengineer — zsh</span>
+        </div>
+        <div class="terminal__body" id="terminal-body">
+          <p class="terminal__line terminal__line--prompt" id="terminal-prompt-1">
+            <span class="terminal__user">visitor</span><span class="terminal__at">@</span
+            ><span class="terminal__host">petitengineer</span><span class="terminal__path"> ~ %</span>
+            <span id="typed-command-1" class="terminal__typed"></span
+            ><span class="terminal__cursor terminal__cursor--prompt" id="term-cursor-1" aria-hidden="true"></span>
+          </p>
+          <pre class="terminal__output" id="terminal-output-1"></pre>
+          <div class="terminal__after-intro" id="terminal-after-intro" hidden></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scroll-cue" id="scroll-cue">
+      <span class="scroll-cue__text">Scroll down to see more</span>
+      <span class="scroll-cue__chev" aria-hidden="true"></span>
+    </div>
+
+    <main>
+      <section id="profile" class="profile-section" aria-labelledby="profile-heading">
+        <div class="profile-section__inner">
+          <article id="profile-card" class="profile-card profile-card--pending" tabindex="-1">
+            <div class="profile-card__photo-wrap">
+              <img
+                class="profile-card__photo"
+                src="./assets/cropped-profile-pic.jpeg"
+                width="200"
+                height="200"
+                alt="Portrait of Jonathan Horton"
+              />
+            </div>
+            <div class="profile-card__text">
+              <h1 id="profile-heading" class="profile-card__name">Jonathan Horton</h1>
+              <p class="profile-card__caption">
+                M.Eng. graduate in ECE (AI), University of Ottawa (2026), building and evaluating machine
+                learning systems, ranging from data pipelines and modeling to computer vision and robotics,
+                all the while teaching and mentoring fellow engineers.
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Invisible: guarantees a little scroll room before projects mount -->
+      <div class="scroll-nudge" aria-hidden="true"></div>
+
+      <section id="projects" class="projects projects--pending" aria-labelledby="projects-heading">
+        <div class="section-head">
+          <h2 id="projects-heading">Projects</h2>
+          <p class="section-head__sub">
+            Here are some of my projects! <a href="projects.html">Full project write-ups</a> are available! :)
+          </p>
+        </div>
+        <ul class="project-grid" id="project-grid">
+          <li>
+            <a class="project-card" href="projects.html" aria-label="View projects">
+              <img src="./assets/project-placeholder-1.svg" alt="" width="640" height="360" />
+              <span class="project-card__body">
+                <span class="project-card__title">Loading projects…</span>
+              </span>
+            </a>
+          </li>
+        </ul>
+      </section>
+
+      <div class="scroll-nudge scroll-nudge--about" aria-hidden="true"></div>
+
+      <section id="about-more" class="about-long about-long--pending" aria-labelledby="about-more-heading">
+        <div class="about-long__inner">
+          <h2 id="about-more-heading">About me</h2>
+          <div class="about-long__prose">
+            <p>
+              I am a 2026 graduate of the Master of Engineering program in Electrical and Computer
+              Engineering at the University of Ottawa, with a concentration in artificial intelligence.
+              My coursework pushed me beyond the standard program requirements, and I keep gravitating
+              toward problems that blend rigorous engineering with applied machine learning.
+            </p>
+            <p>
+              Professionally, I have split my time between building ML systems and helping others
+              learn the fundamentals. As a consultant machine learning engineer with Synopsys
+              (through the university), I built an automated ML pipeline spanning preprocessing,
+              model deployment with TensorFlow Serving, webhooks, and a small frontend—along with
+              evaluation workflows using charts, confusion matrices, and metrics such as F1,
+              precision, and accuracy. That work also involved MLflow for artifact organization so
+              experiments stayed reproducible when teams iterated quickly.
+            </p>
+            <p>
+              I have also competed with Quanser’s autonomous racing platform, placing eighth out of
+              forty-two teams. The stack included ROS2 in Docker on NVIDIA Jetson, OpenCV-based
+              perception, and time-triggered driving modes for lane keeping, traffic-light state
+              estimation (including Hough-based logic), and classic vision operators for cones, stop
+              signs, and road edges.
+            </p>
+            <p>
+              Earlier roles sharpened my software discipline: at Fisheries and Oceans Canada I
+              built a Python library with unit tests to automate validation workflows, and on the
+              University of Ottawa Bionics Team I led electrical development for a four degree of
+              freedom hip-mounted exoskeleton, including an efficient battery pack design.
+            </p>
+            <p>
+              I am most interested in applied AI that ships—autonomous systems, reliable ML
+              pipelines, and tools that make engineers faster. Outside the lab I enjoy teaching,
+              tinkering with embedded hardware, and exploring how perception and control come
+              together on real platforms.
+            </p>
+            <p>
+              Today I am comfortable across Python, C++, TensorFlow, OpenCV, Linux, Docker, ROS2,
+              scikit-learn, and Git, with older experience in MATLAB, VHDL, Java, and embedded
+              style tooling. I enjoy teaching as a teaching assistant for digital systems and for
+              circuit theory—writing lab materials, grading carefully, and helping students gain
+              confidence with bench equipment.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© <span id="year"></span> Jonathan Horton · petitengineer.ca</p>
+    </footer>
+
+    <script src="./projects-registry.js"></script>
+    <script src="./projects-home.js"></script>
+    <script src="./main.js"></script>
+  </body>
+</html>

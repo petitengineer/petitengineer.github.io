@@ -1,0 +1,233 @@
+<section
+  class="project-detail project-detail--pending"
+  id="project-cross-modal-recommender"
+  data-date="2026-04-24"
+  data-slug="cross-modal-recommender"
+  data-title="Cross-Modal Dual-Agent RL"
+  data-tagline="Emotion-aligned poetry &amp; music recommendation"
+  data-thumb="projects/project-0/figures/pipeline.png"
+  data-command="render ~/projects/cross-modal-recommender.md"
+  aria-labelledby="project-cross-modal-heading"
+>
+  <div class="project-detail__inner">
+    <header class="project-detail__head">
+      <p class="project-detail__date"><time datetime="2026-04-24">April 2026</time></p>
+      <h2 id="project-cross-modal-heading">Cross-Modal Dual-Agent RL for Emotion-Aligned Poetry and Music</h2>
+      <p class="project-detail__meta">CSI5340 / ELG5214 · University of Ottawa · Group 4</p>
+    </header>
+
+    <div class="project-detail__prose">
+      <p>
+        We built a cross-modal recommender that aligns poetry (Goodreads) and music (Million Song Dataset subset)
+        in a shared 128-dimensional emotion space, then trains two cooperating RL agents to rerank short candidate
+        slates. Text is encoded with DistilBERT, projected into a joint space anchored by valence–arousal signals,
+        and trained with a triplet objective so neighborhoods reflect mood rather than surface wording.
+      </p>
+
+      <p>
+        Each modality has a lightweight world model (3-layer MLP on concatenated mood and item embeddings) trained on
+        VA-distance synthetic feedback, plus an item-conditional slate policy optimized with REINFORCE and PPO against
+        that simulator. A Gradio demo logs like/dislike clicks for inference-time taste vectors without retraining.
+      </p>
+
+      <figure class="project-figure project-figure--wide">
+        <img
+          src="projects/project-0/figures/pipeline.png"
+          alt="End-to-end pipeline from catalogs through embedding, world models, RL policies, and Gradio demo"
+          width="1200"
+          height="640"
+          loading="lazy"
+        />
+        <figcaption>
+          End-to-end pipeline: offline training uses VA-distance synthetic data; GUI feedback personalizes inference only.
+        </figcaption>
+      </figure>
+
+      <p>
+        The triplet loss pulls same-mood cross-modal pairs together with margin \(\alpha = 0.2\):
+      </p>
+      <p class="project-equation">
+        \(\displaystyle \mathcal{L}_{\text{trip}} = \max\bigl(0,\; \|f(x)-f(x^+)\|_2 - \|f(x)-f(x^-)\|_2 + \alpha \bigr)\)
+      </p>
+
+      <div class="project-figure-grid">
+        <figure class="project-figure">
+          <img
+            src="projects/project-0/figures/embedding_pca.png"
+            alt="PCA of the shared 128-dimensional emotion embedding space"
+            width="640"
+            height="480"
+            loading="lazy"
+          />
+          <figcaption>PCA of the shared emotion space: poetry and music occupy overlapping regions.</figcaption>
+        </figure>
+        <figure class="project-figure">
+          <img
+            src="projects/project-0/figures/valence_arousal.png"
+            alt="Valence-arousal scatter showing circumplex structure"
+            width="640"
+            height="480"
+            loading="lazy"
+          />
+          <figcaption>Valence–arousal scatter confirms the expected circumplex spread.</figcaption>
+        </figure>
+      </div>
+
+      <figure class="project-figure">
+        <img
+          src="projects/project-0/figures/wm_training_curves.png"
+          alt="World-model training and validation loss for music and book agents"
+          width="900"
+          height="520"
+          loading="lazy"
+        />
+        <figcaption>World-model training curves (20 epochs); both modalities converge without overfitting.</figcaption>
+      </figure>
+
+      <p>
+        Policies score each slate item with an item-conditional softmax. Music reward blends listen time, cosine alignment,
+        diversity, and skip probability (\(\alpha{=}0.35\), \(\beta{=}0.35\), \(\gamma{=}0.20\), \(\delta{=}0.10\)).
+        Evaluation on 500 rollouts shows learned rerankers reach 0.42 mean reward vs. 0.38 for cosine/MMR on music, with
+        WM retrieval at 0.43.
+      </p>
+
+      <div class="project-figure-grid">
+        <figure class="project-figure">
+          <img
+            src="projects/project-0/figures/rl_music_reinforcev2.png"
+            alt="Music REINFORCE training curves across four seeds"
+            width="640"
+            height="400"
+            loading="lazy"
+          />
+          <figcaption>Music REINFORCE (4 seeds).</figcaption>
+        </figure>
+        <figure class="project-figure">
+          <img
+            src="projects/project-0/figures/rl_music_ppo.png"
+            alt="Music PPO training curves across three seeds"
+            width="640"
+            height="400"
+            loading="lazy"
+          />
+          <figcaption>Music PPO (3 seeds).</figcaption>
+        </figure>
+      </div>
+
+      <figure class="project-figure">
+        <img
+          src="projects/project-0/figures/image.png"
+          alt="Screenshot of the Gradio mood synchronization demo"
+          width="1000"
+          height="620"
+          loading="lazy"
+        />
+        <figcaption>Gradio demo: users select mood, rate tracks, and receive cross-modal recommendations.</figcaption>
+      </figure>
+
+      <p class="project-detail__link">
+        <a href="https://github.com/petitengineer/multimodalmusictextrecommender" target="_blank" rel="noopener noreferrer"
+          >GitHub repository</a
+        >
+      </p>
+    </div>
+
+      <details class="project-references tex2jax_ignore">
+        <summary class="project-references__summary">
+          <span>References</span>
+          <span class="project-references__chevron" aria-hidden="true">›</span>
+        </summary>
+        <ol class="project-references__list">
+          <li>
+            Xu, J. et al. (2025). <em>A survey on multimodal recommender systems: Recent advances and future directions.</em>
+            arXiv:2502.15711. doi:10.48550/arXiv.2502.15711.
+          </li>
+          <li>
+            Sanh, V., Debut, L., Chaumond, J., Wolf, T. (2020). <em>DistilBERT, a distilled version of BERT: smaller, faster, cheaper and lighter.</em>
+            arXiv:1910.01108.
+          </li>
+          <li>
+            Schroff, F., Kalenichenko, D., Philbin, J. (2015). <em>FaceNet: A unified embedding for face recognition and clustering.</em>
+            In Proc. CVPR.
+          </li>
+          <li>
+            Radford, A. et al. (2021). <em>Learning transferable visual models from natural language supervision.</em>
+            In Proc. ICML.
+          </li>
+          <li>
+            Won, M., Salamon, J., Bryan, N. J., Mysore, G. J., Serra, X. (2021). <em>Emotion embedding spaces for matching music to stories.</em>
+            arXiv:2111.13468. doi:10.48550/arXiv.2111.13468.
+          </li>
+          <li>
+            Yao, T., Mei, T., Ngo, C.-W. (2015). <em>Learning query and image similarities with ranking canonical correlation analysis.</em>
+            In Proc. IEEE ICCV.
+          </li>
+          <li>
+            Zhen, L., Hu, P., Wang, X., Peng, D. (2019). <em>Deep supervised cross-modal retrieval.</em>
+            In Proc. IEEE/CVF CVPR.
+          </li>
+          <li>
+            Russell, J. A. (1980). <em>A circumplex model of affect.</em>
+            Journal of Personality and Social Psychology, 39(6).
+          </li>
+          <li>
+            Bertin-Mahieux, T., Ellis, D. P. W., Whitman, B., Lamere, P. (2011). <em>The Million Song Dataset.</em>
+            In Proc. ISMIR, pp. 591–596.
+          </li>
+          <li>
+            Ha, D., Schmidhuber, J. (2018). <em>Recurrent World Models Facilitate Policy Evolution.</em>
+            In Proc. NeurIPS.
+          </li>
+          <li>
+            Hafner, D., Lillicrap, T., Ba, J., Norouzi, M. (2020). <em>Dream to control: Learning behaviors by latent imagination.</em>
+            In Proc. ICLR.
+          </li>
+          <li>
+            Shi, J.-C., Yu, Y., Da, Q., Chen, S.-Y., Zeng, A.-X. (2019). <em>Virtual-Taobao: Virtualizing real-world online retail environment for reinforcement learning.</em>
+            In Proc. AAAI.
+          </li>
+          <li>
+            Ie, E. et al. (2019). <em>RecSim: A configurable simulation platform for recommender systems.</em>
+            arXiv:1909.04847.
+          </li>
+          <li>
+            Chen, M. et al. (2019). <em>Top-K off-policy correction for a REINFORCE recommender system.</em>
+            In Proc. WSDM.
+          </li>
+          <li>
+            Ie, E., Jain, V., Wang, J., et al. (2019). <em>SlateQ: A tractable decomposition for reinforcement learning with recommendation sets.</em>
+            In Proc. IJCAI.
+          </li>
+          <li>
+            Schulman, J., Wolski, F., Dhariwal, P., Radford, A., Klimov, O. (2017). <em>Proximal policy optimization algorithms.</em>
+            arXiv:1707.06347.
+          </li>
+          <li>
+            Williams, R. J. (1992). <em>Simple statistical gradient-following algorithms for connectionist reinforcement learning.</em>
+            Machine Learning, 8.
+          </li>
+          <li>
+            Zou, L. et al. (2020). <em>Neural interactive collaborative filtering.</em>
+            In Proc. SIGIR.
+          </li>
+          <li>
+            Chi, C.-Y., Tsai, R. T.-H., Lai, J.-Y., Hsu, J. Y.-J. (2010). <em>A reinforcement learning approach to emotion-based automatic playlist generation.</em>
+            In Proc. TAAI, pp. 60–65.
+          </li>
+          <li>
+            Liebman, E., Saar-Tsechansky, M., Stone, P. (2014). <em>DJ-MC: A reinforcement-learning agent for music playlist recommendation.</em>
+            arXiv:1401.1880.
+          </li>
+          <li>
+            Shani, G., Heckerman, D., Brafman, R. I. (2005). <em>An MDP-based recommender system.</em>
+            Journal of Machine Learning Research, 6, 1265–1295.
+          </li>
+          <li>
+            Google Colab and C. McCormick. <em>Colab GPU Pricing &amp; Features.</em>
+            <a href="https://colab.research.google.com/github/chrisjmccormick/llm-tuning-examples/blob/main/tutorials/Colab_GPU_Pricing_%26_Features.ipynb" target="_blank" rel="noopener noreferrer">Online notebook</a>.
+            Accessed Apr. 24, 2026.
+          </li>
+        </ol>
+      </details>
+  </div>
+</section>
