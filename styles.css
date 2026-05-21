@@ -1,5 +1,7 @@
 /* Theme tokens — sky blue + pink, modern */
 :root {
+  --terminal-cursor-blink-period: 0.5s;
+  --profile-name-glow-period: calc(var(--terminal-cursor-blink-period) * 8);
   --font-sans: "DM Sans", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
   --radius-sm: 8px;
@@ -143,6 +145,79 @@ a:hover {
   }
 }
 
+/* Cursor-following accent pixels (~2 mm lead, smaller trail) */
+.cursor-pixel {
+  position: fixed;
+  inset: 0;
+  z-index: 55;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.12s ease;
+}
+
+.cursor-pixel.is-visible {
+  opacity: 1;
+}
+
+.cursor-pixel__dot {
+  position: fixed;
+  display: block;
+  border-radius: 1px;
+  transform: translate(-50%, -50%);
+  background-color: var(--sky);
+  box-shadow:
+    0 0 0 0.5px color-mix(in srgb, var(--sky) 55%, transparent),
+    0 0 3px color-mix(in srgb, var(--sky) 35%, transparent);
+  animation:
+    cursor-pixel-spin 5s linear infinite,
+    cursor-pixel-hue 2.4s ease-in-out infinite alternate;
+  will-change: left, top, transform, background-color;
+}
+
+.cursor-pixel__dot--lead {
+  width: 2mm;
+  height: 2mm;
+}
+
+.cursor-pixel__dot--mid {
+  width: 1.44mm;
+  height: 1.44mm;
+  animation-delay: 0.35s, 0.35s;
+}
+
+.cursor-pixel__dot--trail {
+  width: 0.96mm;
+  height: 0.96mm;
+  animation-delay: 0.7s, 0.7s;
+}
+
+@keyframes cursor-pixel-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes cursor-pixel-hue {
+  from {
+    background-color: var(--sky);
+    box-shadow: 0 0 0 0.25px color-mix(in srgb, var(--sky) 45%, transparent);
+  }
+  to {
+    background-color: var(--pink);
+    box-shadow: 0 0 0 0.25px color-mix(in srgb, var(--pink-deep) 45%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor-pixel__dot {
+    animation: none;
+    background-color: var(--sky);
+  }
+}
+
 .site-header {
   position: fixed;
   top: 0;
@@ -159,17 +234,49 @@ a:hover {
   border-bottom: 1px solid var(--border);
 }
 
+.site-header__identity {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.08rem;
+  line-height: 1.15;
+  overflow: visible;
+}
+
+.site-header__name {
+  display: block;
+  box-sizing: content-box;
+  font-size: 1.08rem;
+  text-align: justify;
+  text-align-last: justify;
+  white-space: nowrap;
+  overflow: visible;
+}
+
+.brand {
+  display: block;
+  box-sizing: content-box;
+  font-size: 0.94rem;
+  white-space: nowrap;
+  overflow: visible;
+}
+
+.site-header__name,
 .brand {
   font-weight: 700;
-  font-size: 1rem;
   letter-spacing: -0.02em;
   text-decoration: none;
   background: var(--accent-gradient);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  text-shadow:
+    0 0 6px color-mix(in srgb, var(--sky) 22%, transparent),
+    0 0 12px color-mix(in srgb, var(--pink) 16%, transparent);
+  animation: profile-name-neon-pulse var(--profile-name-glow-period) ease-in-out infinite;
 }
 
+.site-header__name:hover,
 .brand:hover {
   opacity: 0.9;
 }
@@ -417,7 +524,7 @@ body.terminal-minimized:not(.terminal-dismissed) .terminal-float .terminal__body
 }
 
 .terminal__cursor--idle {
-  animation: cursor-idle 0.5s step-end infinite;
+  animation: cursor-idle var(--terminal-cursor-blink-period) step-end infinite;
 }
 
 @keyframes cursor-idle {
@@ -435,6 +542,15 @@ body.terminal-minimized:not(.terminal-dismissed) .terminal-float .terminal__body
   .terminal__cursor--idle {
     animation: none;
     opacity: 1;
+  }
+
+  .profile-card__name,
+  .site-header__name,
+  .brand {
+    animation: none;
+    text-shadow:
+      0 0 6px color-mix(in srgb, var(--sky) 20%, transparent),
+      0 0 12px color-mix(in srgb, var(--pink) 14%, transparent);
   }
 }
 
@@ -672,6 +788,25 @@ body.projects-live .scroll-nudge:not(.scroll-nudge--about) {
   font-weight: 700;
   letter-spacing: -0.03em;
   line-height: 1.15;
+  text-shadow:
+    0 0 6px color-mix(in srgb, var(--sky) 22%, transparent),
+    0 0 12px color-mix(in srgb, var(--pink) 16%, transparent);
+  animation: profile-name-neon-pulse var(--profile-name-glow-period) ease-in-out infinite;
+}
+
+@keyframes profile-name-neon-pulse {
+  0%,
+  100% {
+    text-shadow:
+      0 0 4px color-mix(in srgb, var(--sky) 14%, transparent),
+      0 0 10px color-mix(in srgb, var(--pink) 10%, transparent);
+  }
+  50% {
+    text-shadow:
+      0 0 7px color-mix(in srgb, var(--sky) 28%, transparent),
+      0 0 14px color-mix(in srgb, var(--sky) 18%, transparent),
+      0 0 20px color-mix(in srgb, var(--pink) 14%, transparent);
+  }
 }
 
 .profile-card__caption {

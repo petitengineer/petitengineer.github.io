@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Jonathan Horton — petitengineer.ca</title>
+    <title>Jonathan Horton — petitengineer.com</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -11,6 +11,8 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./styles.css" />
+    <script src="./cursor-pixel.js" defer></script>
+    <script src="./header-identity.js" defer></script>
   </head>
   <body>
     <div class="bg-pixels" aria-hidden="true">
@@ -20,7 +22,10 @@
     </div>
 
     <header class="site-header">
-      <a class="brand" href="./">petitengineer.ca</a>
+      <div class="site-header__identity">
+        <a class="site-header__name" href="#profile">Jonathan Horton</a>
+        <a class="brand" href="./">petitengineer.com</a>
+      </div>
       <nav class="site-nav" aria-label="Primary">
         <a class="nav-link nav-link--jump" href="#profile">Profile</a>
         <a class="nav-link" href="projects.html">Projects</a>
@@ -200,7 +205,7 @@
     </main>
 
     <footer class="site-footer">
-      <p>© <span id="year"></span> Jonathan Horton · petitengineer.ca</p>
+      <p>© <span id="year"></span> Jonathan Horton · petitengineer.com</p>
     </footer>
 
     <script src="./projects-registry.js"></script>

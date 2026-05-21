@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Projects — Jonathan Horton · petitengineer.ca</title>
+    <title>Projects — Jonathan Horton · petitengineer.com</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -11,6 +11,8 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./styles.css" />
+    <script src="./cursor-pixel.js" defer></script>
+    <script src="./header-identity.js" defer></script>
     <script>
       window.MathJax = {
         tex: { inlineMath: [["\\(", "\\)"], ["$", "$"]], displayMath: [["\\[", "\\]"], ["$$", "$$"]] },
@@ -30,7 +32,10 @@
     </div>
 
     <header class="site-header">
-      <a class="brand" href="./">petitengineer.ca</a>
+      <div class="site-header__identity">
+        <a class="site-header__name" href="./#profile">Jonathan Horton</a>
+        <a class="brand" href="./">petitengineer.com</a>
+      </div>
       <nav class="site-nav" aria-label="Primary">
         <a class="nav-link" href="./#profile">Profile</a>
         <a class="nav-link nav-link--current" href="projects.html" aria-current="page">Projects</a>
@@ -149,7 +154,7 @@
     </main>
 
     <footer class="site-footer">
-      <p>© <span id="year"></span> Jonathan Horton · <a href="./">petitengineer.ca</a></p>
+      <p>© <span id="year"></span> Jonathan Horton · <a href="./">petitengineer.com</a></p>
     </footer>
 
     <script src="./projects-registry.js"></script>
