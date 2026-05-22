@@ -768,10 +768,23 @@
     }
   }
 
+  function scrollMarginTop(el) {
+    const v = parseFloat(getComputedStyle(el).scrollMarginTop);
+    return Number.isFinite(v) ? v : 0;
+  }
+
+  function scrollSectionIntoView(el, extra = 0) {
+    const run = () => {
+      const top = el.getBoundingClientRect().top + window.scrollY - scrollMarginTop(el) - extra;
+      window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+    };
+    requestAnimationFrame(() => requestAnimationFrame(run));
+  }
+
   function jumpToSection(id) {
     if (id === "profile") {
       revealProfile();
-    } else if (id === "projects") {
+    } else if (id === "projects" || id === "projects-list") {
       revealProfile();
       if (!projectsExecuted) {
         executeProjects();
@@ -786,9 +799,34 @@
       }
     }
 
-    const target = document.getElementById(id);
-    if (target) {
-      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    const targetId = id === "projects-list" ? "projects" : id;
+    const target = document.getElementById(targetId);
+    if (!target) return;
+
+    const extraScroll = id === "about-more" ? 48 : 0;
+    const scrollDelay = id === "about-more" ? 420 : id === "projects" || id === "projects-list" ? 120 : 0;
+
+    const doScroll = () => scrollSectionIntoView(target, extraScroll);
+
+    if (id === "about-more" && !target.classList.contains("is-revealed")) {
+      const observer = new MutationObserver(() => {
+        if (target.classList.contains("is-revealed")) {
+          observer.disconnect();
+          setTimeout(doScroll, 80);
+        }
+      });
+      observer.observe(target, { attributes: true, attributeFilter: ["class"] });
+      setTimeout(() => {
+        observer.disconnect();
+        doScroll();
+      }, scrollDelay);
+      return;
+    }
+
+    if (scrollDelay) {
+      setTimeout(doScroll, scrollDelay);
+    } else {
+      doScroll();
     }
   }
 

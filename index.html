@@ -75,6 +75,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="./assets/logo.png" type="image/png" />
     <title>Jonathan Horton — petitengineer.com</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -86,6 +87,8 @@
     <script src="./devtools-banner.js" defer></script>
     <script src="./cursor-pixel.js" defer></script>
     <script src="./header-identity.js" defer></script>
+    <script src="./nav-menu.js" defer></script>
+    <script src="./nav-active.js" defer></script>
   </head>
   <body>
     <div class="bg-pixels" aria-hidden="true">
@@ -100,29 +103,71 @@
         <a class="brand" href="./">petitengineer.com</a>
       </div>
       <nav class="site-nav" aria-label="Primary">
-        <a class="nav-link nav-link--jump" href="#profile">Profile</a>
-        <a class="nav-link" href="projects.html">Projects</a>
-        <a class="nav-link nav-link--jump" href="#about-more">About</a>
-        <a
-          class="nav-link"
-          href="https://www.linkedin.com/in/jonathan-horton-elg"
-          target="_blank"
-          rel="noopener noreferrer"
-          >LinkedIn</a
-        >
         <button
           type="button"
-          class="theme-toggle"
-          id="theme-toggle"
-          aria-label="Toggle light and dark theme"
-          title="Theme"
+          class="nav-menu-toggle"
+          id="nav-menu-toggle"
+          aria-expanded="false"
+          aria-controls="site-nav-panel"
         >
-          <span class="theme-toggle__track" aria-hidden="true">
-            <span class="theme-toggle__thumb"></span>
+          <span class="nav-menu-toggle__bars" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
           </span>
-          <span class="theme-toggle__label" data-light>Light</span>
-          <span class="theme-toggle__label" data-dark>Dark</span>
+          <span class="nav-menu-toggle__label">Menu</span>
         </button>
+        <button
+          type="button"
+          class="site-nav__backdrop"
+          data-nav-backdrop
+          hidden
+          aria-label="Close menu"
+        ></button>
+        <div class="site-nav__panel" id="site-nav-panel">
+          <ul class="site-nav__list">
+            <li class="site-nav__page-links">
+              <a class="nav-link nav-link--jump" href="#profile" data-nav-section="profile">Profile</a>
+              <a class="nav-link nav-link--jump" href="#projects" data-nav-section="projects-list">Project List</a>
+              <a class="nav-link nav-link--jump" href="#about-more" data-nav-section="about-more">About</a>
+            </li>
+            <li class="site-nav__sep-item" aria-hidden="true">
+              <span class="site-nav__sep">|</span>
+            </li>
+            <li>
+              <a class="nav-link" href="projects.html" data-nav-section="projects">Projects</a>
+            </li>
+            <li class="site-nav__sep-item" aria-hidden="true">
+              <span class="site-nav__sep site-nav__sep--double"
+                ><span>|</span><span>|</span></span
+              >
+            </li>
+            <li>
+              <a
+                class="nav-link"
+                href="https://www.linkedin.com/in/jonathan-horton-elg"
+                target="_blank"
+                rel="noopener noreferrer"
+                >LinkedIn</a
+              >
+            </li>
+            <li class="site-nav__theme">
+              <button
+                type="button"
+                class="theme-toggle"
+                id="theme-toggle"
+                aria-label="Toggle light and dark theme"
+                title="Theme"
+              >
+                <span class="theme-toggle__track" aria-hidden="true">
+                  <span class="theme-toggle__thumb"></span>
+                </span>
+                <span class="theme-toggle__label" data-light>Light</span>
+                <span class="theme-toggle__label" data-dark>Dark</span>
+              </button>
+            </li>
+          </ul>
+        </div>
       </nav>
     </header>
 
